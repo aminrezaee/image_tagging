@@ -1,10 +1,10 @@
 images:
     # Path to the input images
-    path: "example_images"
+    path: "zip_files"
 
     # Image types to include
     types:
-    - png
+    - zip
 
 database:
     # Path to store tags database
@@ -13,16 +13,14 @@ database:
 
 tagging:
     # Define the tagging question
-    tag question: "Which color does the flower have:"
+    tag question: "Is it a prostate Image ?"
 
     # Define tags and shortcut key to tag
     # Note format is "tag": "key"
     tags:
-        White: 1
-        Red: 2
-        Yellow: 3
-        Blue: 4
-        Other: 5
+        Prostate: 1
+        Not Prostate: 2
+        Bad Image: 3
 
     # Allow selection of multiple labels
     multi-select: False
@@ -35,8 +33,8 @@ tagging:
 
 interface:
     # Max image size in pixels
-    max_width: 400
-    max_height: 600
+    max_width: 150
+    max_height: 150
 
 server:
 

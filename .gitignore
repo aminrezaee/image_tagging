@@ -65,3 +65,9 @@ venv.bak/
 
 # IDE stuff
 .vscode
+/not_prostate/
+/prostate/
+/temp/
+/zip_files/
+/example_output/
+/example_images/
