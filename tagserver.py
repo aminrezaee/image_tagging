@@ -13,6 +13,8 @@ import utils
 from PIL import Image
 
 app = Flask(__name__, static_url_path="/static")
+config = ConfigReader(config_file)
+loader = Loader(self._config)
 
 
 @app.route("/")
