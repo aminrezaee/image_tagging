@@ -104,7 +104,7 @@ def _render_image(image_id):
 
     # Load and preprocess the data
     data = loader.get_by_id(image_id)
-    remaining, count = loader.get_remainingand_count()
+    remaining, count = loader.get_remaining_and_count()
     if not data:
         raise RuntimeError(f"Cannot render image with ID '{image_id}'.")
     data['remaining'] = remaining
