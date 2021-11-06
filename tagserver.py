@@ -12,6 +12,8 @@ from dataset_loader import Loader
 import utils
 from PIL import Image
 
+app = Flask(__name__, static_url_path="/static")
+
 
 @app.route("/")
 def show_index():
@@ -117,14 +119,13 @@ def _render_image(image_id):
 
 def init():
     # Create Flask app and define routes
-    app = Flask(__name__, static_url_path="/static")
     app.add_url_rule("/", "index", show_index)
     app.add_url_rule("/finished", "finished", finished)
     app.add_url_rule("/show_image/<index>", "show_image/<index>", show_image)
     app.add_url_rule(
         "/store_tags", "store_tags", store_tags, methods=["POST"]
     )
-    return app
+    return
 
 
-app = init()
+init()
