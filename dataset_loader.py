@@ -164,10 +164,10 @@ class Loader:
             );
         """
         )
-        current_files = os.listdir('./zip_files/')
+        current_files = os.listdir('/root/prostate_diagnosis/prostate_diagnosis/images_without_label/')
         for file in current_files:
             data = dict()
-            file_path = './zip_files/' + file
+            file_path = '/root/prostate_diagnosis/prostate_diagnosis/images_without_label/' + file
             hash = self._hash(file_path)
             result = self._db.query("SELECT * FROM tags  where hash = '" + hash + "'")
             if len(result) == 0:  # not added

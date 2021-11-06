@@ -11,7 +11,7 @@ from config import ConfigReader
 from dataset_loader import Loader
 import utils
 from PIL import Image
-
+import sys
 
 class TagServer:
     """
@@ -29,7 +29,6 @@ class TagServer:
     """
 
     def __init__(self, config_file):
-
         # Set up config and image services
         self._config = ConfigReader(config_file)
         self.loader = Loader(self._config)
@@ -42,6 +41,7 @@ class TagServer:
         self._app.add_url_rule(
             "/store_tags", "store_tags", self.store_tags, methods=["POST"]
         )
+        print("rules added!")
         return
 
     def start(self):
@@ -58,11 +58,12 @@ class TagServer:
             webbrowser.open_new(host_str)
 
         # Run Flask app
-        self._app.run(host=host, port=port, debug=debug, use_reloader=False)
+        #self._app.run(host=host, port=port, debug=debug, use_reloader=False)
 
+    #@self.app.route("/")
     def show_index(self):
         """Routing: Show the main page."""
-
+        print("showing main page")
         image_id = request.args.get("image_id")
         if not image_id:
             data = self.loader.next_data()
@@ -79,16 +80,23 @@ class TagServer:
         }
         return render_template("index.html", content=content, meta=metadata)
 
+    #@self._app.route("/finished")
     def finished(self):
         return render_template("finished.html")
 
+    #@self._app.route("/show_image/<index>")
     def show_image(self, index):
         """Routing: Sends the image file to the webbrowser."""
+        print("showing image")
         image_id = request.args.get("image_id")
         image = self.loader.get_by_id(image_id)
         zip_file_path = image["path"]
-        folder_name = zip_file_path.split(".")[1].split("/")[-1]
-        final_path = 'example_images/' + folder_name + '/' + str(index) + '.jpeg'
+        folder_name = zip_file_path.split(".zip")[0].split("/")[-1]
+        final_path = '/root/image_tagging/example_images/' + folder_name + '/' + str(index) + '.jpeg'
+        with open('output.txt', 'w') as f:
+            f.write(final_path)
+            f.write("\n")
+            f.write(folder_name)
         width = self._config.get("interface/max_width", 200)
         height = self._config.get("interface/max_height", 200)
         if not os.path.exists(final_path):
@@ -100,11 +108,12 @@ class TagServer:
             matrices.append(image_matrix)
             image = Image.fromarray(image_matrix).convert('L')
             image = image.resize((width, height))
-            if not os.path.exists('example_images/' + folder_name):
-                os.mkdir('example_images/' + folder_name)
+            if not os.path.exists('/root/image_tagging/example_images/' + folder_name):
+                os.mkdir('/root/image_tagging/example_images/' + folder_name)
             image.save(final_path)
         return send_file(final_path, mimetype='image/jpg')
 
+    #@self._app.route("/store_tags")
     def store_tags(self):
         """Routing: Stores the (updated) tag data for the image."""
         data = {
@@ -112,6 +121,7 @@ class TagServer:
             "tag": request.form.get('tags'),
             "SHOWN": 0
         }
+        print("storing tags")
         self.loader.store(data)
 
         next_image = self.loader.next_data()
