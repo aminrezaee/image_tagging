@@ -32,8 +32,8 @@ def show_index():
         content = _render_image(image_id)
 
     metadata = {
-        "max_image_width": _config.get("interface/max_width", 200),
-        "max_image_height": _config.get("interface/max_height", 200),
+        "max_image_width": config.get("interface/max_width", 200),
+        "max_image_height": config.get("interface/max_height", 200),
     }
     return render_template("index.html", content=content, meta=metadata)
 
@@ -51,8 +51,8 @@ def show_image(index):
     zip_file_path = image["path"]
     folder_name = zip_file_path.split(".")[1].split("/")[-1]
     final_path = 'example_images/' + folder_name + '/' + str(index) + '.jpeg'
-    width = _config.get("interface/max_width", 200)
-    height = _config.get("interface/max_height", 200)
+    width = config.get("interface/max_width", 200)
+    height = config.get("interface/max_height", 200)
     if not os.path.exists(final_path):
         path_to_dicoms = utils.unzip(zip_file_path)
         datasets = utils.read_patinet(path_to_dicoms)
