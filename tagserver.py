@@ -98,7 +98,7 @@ def _render_image(image_id):
     """
 
     # Load all available tags from cofniguration
-    shortcuts = _config.get("tagging/tags")
+    shortcuts = config.get("tagging/tags")
     if not shortcuts:
         raise ValueError("Could not read any tags from the configuration file.")
 
@@ -112,9 +112,9 @@ def _render_image(image_id):
     # Add meta data
     data["all_tags"] = list(shortcuts)
     data["shortcuts"] = shortcuts
-    data["tag_question"] = _config.get("tagging/tag question", "Select tags:")
-    data["allow_remarks"] = _config.get("tagging/allow remarks", False)
-    data["multi_select"] = _config.get("tagging/multi-select", False)
+    data["tag_question"] = config.get("tagging/tag question", "Select tags:")
+    data["allow_remarks"] = config.get("tagging/allow remarks", False)
+    data["multi_select"] = config.get("tagging/multi-select", False)
     # print(loader.get_shown_images())
     return render_template("tag_image.html", **data)
 
