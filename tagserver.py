@@ -13,21 +13,6 @@ import utils
 from PIL import Image
 
 
-def init():
-    # Create Flask app and define routes
-    app = Flask(__name__, static_url_path="/static")
-    app.add_url_rule("/", "index", show_index)
-    app.add_url_rule("/finished", "finished", finished)
-    app.add_url_rule("/show_image/<index>", "show_image/<index>", show_image)
-    app.add_url_rule(
-        "/store_tags", "store_tags", store_tags, methods=["POST"]
-    )
-    return app
-
-
-app = init()
-
-
 @app.route("/")
 def show_index():
     """Routing: Show the main page."""
@@ -128,3 +113,18 @@ def _render_image(image_id):
     data["multi_select"] = _config.get("tagging/multi-select", False)
     # print(loader.get_shown_images())
     return render_template("tag_image.html", **data)
+
+
+def init():
+    # Create Flask app and define routes
+    app = Flask(__name__, static_url_path="/static")
+    app.add_url_rule("/", "index", show_index)
+    app.add_url_rule("/finished", "finished", finished)
+    app.add_url_rule("/show_image/<index>", "show_image/<index>", show_image)
+    app.add_url_rule(
+        "/store_tags", "store_tags", store_tags, methods=["POST"]
+    )
+    return app
+
+
+app = init()
