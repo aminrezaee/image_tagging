@@ -13,7 +13,7 @@ import utils
 from PIL import Image
 
 app = Flask(__name__, static_url_path="/static")
-config = ConfigReader(config_file)
+config = ConfigReader('example_config.yaml')
 loader = Loader(self._config)
 
 
