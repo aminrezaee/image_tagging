@@ -83,7 +83,7 @@ def check_body_part(dataset):
 def unzip(path, required_path='temp/'):
     try:
         file_reference = zipfile.ZipFile(path, 'r')
-        required_directory_name = path.split(".")[1].split("/")[-1]
+        required_directory_name = path.split(".zip")[0].split("/")[-1]
         if not os.path.exists(required_path + required_directory_name):
             os.mkdir(required_path + required_directory_name)
             file_reference.extractall(required_path + required_directory_name)

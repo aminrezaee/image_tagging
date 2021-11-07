@@ -15,7 +15,7 @@ from PIL import Image
 app = Flask(__name__, static_url_path="/static")
 config = ConfigReader('example_config.yaml')
 loader = Loader(config)
-
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route("/")
 def show_index():
@@ -49,21 +49,33 @@ def show_image(index):
     image_id = request.args.get("image_id")
     image = loader.get_by_id(image_id)
     zip_file_path = image["path"]
-    folder_name = zip_file_path.split(".")[1].split("/")[-1]
-    final_path = 'example_images/' + folder_name + '/' + str(index) + '.jpeg'
+    folder_name = zip_file_path.split(".zip")[0].split("/")[-1]
+    final_path = 'static/example_images/' + folder_name + '/' + str(index) + '.jpeg'
     width = config.get("interface/max_width", 200)
     height = config.get("interface/max_height", 200)
+    output_file = open("files.txt",'a')
+    output_file.write(str(index)+'\n')
     if not os.path.exists(final_path):
         path_to_dicoms = utils.unzip(zip_file_path)
+        output_file.write(path_to_dicoms + "\n")
         datasets = utils.read_patinet(path_to_dicoms)
+        output_file.write(str(len(datasets)) + '\n')
+        output_file.write(str(int(index))+'\n')
         matrices = []
-        dataset = datasets[int(index)]
+        dataset = None
+        for i in range(len(datasets)):
+            output_file.write(str(i))
+            if i == int(index):
+                dataset = datasets[i]
+                output_file.write(str(i))
+            else:
+                output_file.write(index)
         image_matrix = dataset.pixel_array
         matrices.append(image_matrix)
         image = Image.fromarray(image_matrix).convert('L')
         image = image.resize((width, height))
-        if not os.path.exists('example_images/' + folder_name):
-            os.mkdir('example_images/' + folder_name)
+        if not os.path.exists('static/example_images/' + folder_name):
+            os.mkdir('static/example_images/' + folder_name)
         image.save(final_path)
     return send_file(final_path, mimetype='image/jpg')
 

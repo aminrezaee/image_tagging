@@ -1,0 +1,8 @@
+cd /root/image_tagging/
+rm -r example_output
+mkdir example_output
+rm -r temp
+mkdir temp
+rm -r example_images
+mkdir example_images
+mv prostate* /root/prostate_diagnosis/prostate_diagnosis/images_without_label/
