@@ -62,7 +62,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+*.save
 # IDE stuff
 .vscode
 /not_prostate/
@@ -72,4 +72,4 @@ venv.bak/
 /example_output/
 /example_images/
 /static/example_images/
-
+.idea/

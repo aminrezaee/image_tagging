@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c46e3a06-d5a7-4f4a-9920-132ff48eb54d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tagserver.py" beforeDir="false" afterPath="$PROJECT_DIR$/tagserver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/files.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flush.sh.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/screenshot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tagserver.py.save" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py.save" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +102,7 @@
       <workItem from="1636186029501" duration="21000" />
       <workItem from="1636186092716" duration="484000" />
       <workItem from="1636198916897" duration="8701000" />
+      <workItem from="1644245501143" duration="141000" />
     </task>
     <servers />
   </component>
