@@ -25,14 +25,14 @@ class Loader:
         self.current_data = None
         self.current_index = -1
         self.max_index = self.get_max_index()
-        self.id_list = []
+        self.id_list = []  # this array saves previous ids for back button
         return
 
     def get_max_index(self):
         max_index = self._db.query(" SELECT * FROM tags ORDER BY id DESC LIMIT 1 ")
         return dict(max_index.iloc[0])['id']
 
-    def get_shown_images(self):
+    def get_shown_images(self):  # if multi user then one image should be shown to only one person
         datas = self._db.query("""
                     SELECT * FROM tags where SHOWN = 1
                     ;
@@ -79,29 +79,19 @@ class Loader:
         lock.release()
         return data
 
-    def get_by_id(self, id):
+    def get_by_id(self, id):  # get patient by id
         data = self._db.query(
             "SELECT * FROM tags WHERE " + "id = '" + id + "' LIMIT 1"
         )
         return dict(data.iloc[0])
 
-    def store(self, data):
+    def store(self, data):  # storing new data or changed data
         if data['tag'] is None:
             data['tag'] = '0'
-        tag = data['tag']
+        # tag = data['tag']
         id = data['id']
         old_data = self.get_by_id(id)
         new_path = old_data['path']
-        if tag == 'Not Prostate':
-            file_name = old_data['path'].split("/")[2]
-            shutil.move(old_data['path'], "not_prostate/")
-            print("file moved!")
-            new_path = "./not_prostate/" + file_name
-        if tag == 'Prostate':
-            file_name = old_data['path'].split("/")[2]
-            shutil.move(old_data['path'], "prostate/")
-            print("file moved!")
-            new_path = "./prostate/" + file_name
         data['path'] = new_path
         data['hash'] = old_data['hash']
         data['id'] = id
@@ -164,6 +154,7 @@ class Loader:
             );
         """
         )
+        # this is where we add our data to database
         current_files = os.listdir('/root/prostate_diagnosis/prostate_diagnosis/images_without_label/')
         for file in current_files:
             data = dict()

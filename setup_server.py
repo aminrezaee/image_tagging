@@ -2,7 +2,7 @@ import os
 import utils
 from PIL import Image
 from config import ConfigReader
-
+# creating jpegs from zip of dicom files for better and faster image displaying
 zip_files_path = '/root/prostate_diagnosis/prostate_diagnosis/images_without_label/'
 config = ConfigReader('example_config.yaml')
 width = config.get("interface/max_width", 200)

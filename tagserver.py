@@ -1,5 +1,5 @@
 """Module containing the Flask tagging server."""
-
+# this is main
 import io
 import os
 import argparse
@@ -16,6 +16,7 @@ app = Flask(__name__, static_url_path="/static")
 config = ConfigReader('example_config.yaml')
 loader = Loader(config)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 @app.route("/")
 def show_index():
@@ -53,14 +54,14 @@ def show_image(index):
     final_path = 'static/example_images/' + folder_name + '/' + str(index) + '.jpeg'
     width = config.get("interface/max_width", 200)
     height = config.get("interface/max_height", 200)
-    output_file = open("files.txt",'a')
-    output_file.write(str(index)+'\n')
+    output_file = open("files.txt", 'a')
+    output_file.write(str(index) + '\n')
     if not os.path.exists(final_path):
         path_to_dicoms = utils.unzip(zip_file_path)
         output_file.write(path_to_dicoms + "\n")
         datasets = utils.read_patinet(path_to_dicoms)
         output_file.write(str(len(datasets)) + '\n')
-        output_file.write(str(int(index))+'\n')
+        output_file.write(str(int(index)) + '\n')
         matrices = []
         dataset = None
         for i in range(len(datasets)):

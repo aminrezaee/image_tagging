@@ -1,5 +1,5 @@
 import os
-
+# some utils for dicom file processing
 
 def get_errored_samples(downloaded_path, current_ids):
     downloaded_image_ids = os.listdir(downloaded_path)
